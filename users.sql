@@ -9,7 +9,7 @@ Select  min(claim_code) as claim_code,
         min(guardian_name) as guardian_name, 
         min(last_name) as last_name, 
         min(origin) as origin, 
-        id, 
+        id as pidxuid, 
         min(school_name) as school_name, 
         min(zipcode) as zipcode, 
         min(external_id) as external_id
@@ -34,13 +34,13 @@ Where   claim_code in
         )
 Group by user_id
 ) fusion
-on users.id = fusion.user_id
+on users.id = fusion.pidxuid
 
 left outer join 
 (
 select  distinct user_id as pidxuid, 1 as asmflag 
 from    user_registrations 
 where   org_id = 18
-
 ) asm
+on users.id = asm.user_id
 
