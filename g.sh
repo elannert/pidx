@@ -1,5 +1,5 @@
 #!/bin/bash
 # use this once: git config credential.helper store
 git add *
-git commit -m "duration window function to bring the minimum into each row"
+git commit -m "datediff on the subquery"
 git push origin master
