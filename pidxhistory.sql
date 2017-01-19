@@ -1,14 +1,16 @@
-Select	users_dates.pmonth, users_dates.user_id, 
-		case when breadth is Null then 
-				lag(breadth) ignore nulls 
-				over (partition by users_dates.user_id order by pmonth asc) 
-		else breadth 
-		end as breadth,
-		case when depth is Null then 
-				lag(depth) ignore nulls 
-				over (partition by users_dates.user_id order by pmonth asc) 
-		else depth 
-		end as depth
+-- Select pmonth, user_id, 
+-- 		case when breadth is Null then 
+-- 				lag(breadth) ignore nulls 
+-- 				over (partition by users_dates.user_id order by pmonth asc) 
+-- 		else breadth 
+-- 		end as breadth,
+-- 		case when depth is Null then 
+-- 				lag(depth) ignore nulls 
+-- 				over (partition by users_dates.user_id order by pmonth asc) 
+-- 		else depth 
+-- 		end as depth
+
+Select	users_dates.pmonth, users_dates.user_id, breadth, depth 
 from	(
 		Select	dates.pmonth, u.user_id 
 		From	(
