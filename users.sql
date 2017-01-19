@@ -48,3 +48,16 @@ From    (
         ) asm
         on u.pidxuid = asm.user_id
         
+        left outer join 
+        
+        (
+        Select  case when count(id)>0 then 1 else 0 end as divas, user_id as pidxuid 
+        from    user_registrations 
+        Where   claim_code in
+                ('PV4N4'
+                ,'PTVXT'
+                ,'P8IJH'
+                )
+        Group by user_id
+        ) divas
+        on u.pidxuid = divas.pidxuid
