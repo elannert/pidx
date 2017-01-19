@@ -188,7 +188,7 @@ from	(
 		
 		left outer join 
 		(
-		select  cast(datediff(day, min(created_at), created_at) as float)/365 as duration, User_id, date_trunc('month', created_at)) as monthending 
+		select  cast(datediff(day, min(created_at), created_at) as float)/365 as duration, User_id, date_trunc('month', created_at) as monthending 
 		from    user_registrations 
 		where user_id = '391516'
         group by user_id 
