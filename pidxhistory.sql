@@ -190,6 +190,7 @@ from	(
 		(
 		select  cast(datediff(day, min(created_at), created_at) as float)/365 as duration, User_id, date_trunc('month', created_at)) as monthending 
 		from    user_registrations 
+		where user_id = '391516'
         group by user_id 
         having datediff(day, min(created_at), max(created_at))>2
         ) durationsql
