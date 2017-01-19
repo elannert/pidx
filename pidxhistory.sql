@@ -10,7 +10,7 @@
 -- 		else depth 
 -- 		end as depth
 
-Select	users_dates.pmonth, users_dates.user_id, breadth, depth 
+Select	users_dates.pmonth, users_dates.user_id, breadth, depth, duration 
 from	(
 		Select	dates.pmonth, u.user_id 
 		From	(
