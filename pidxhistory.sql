@@ -1,7 +1,6 @@
 Select  pmonth, user_id, breadth, depth, duration, density,
         (breadth * depth * duration * density) as pmass
 from    (
-
         Select pmonth, user_id, 
         		case when breadth is Null then 
         				lag(breadth) ignore nulls 
