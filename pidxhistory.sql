@@ -188,11 +188,12 @@ from	(
 		
 		left outer join 
 		(
-		select  cast(datediff(day, min(created_at), created_at) as float)/365 as duration, User_id, date_trunc('month', created_at) as monthending 
-		from    user_registrations 
-		where user_id = '391516'
-        group by user_id 
-        having datediff(day, min(created_at), max(created_at))>2
+        select max(cast(datediff(day, first_registration, created_at) as float)/365) as duration, user_id, monthending
+        from    (
+                select user_id, created_at, date_trunc('month', created_at) as monthending, min(created_at) over (partition by user_id order by id  asc rows unbounded preceding) as first_registration
+                from user_registrations
+                )
+        group by user_id, monthending
         ) durationsql
 		on users_dates.pmonth = durationsql.monthending
 		and users_dates.user_id = durationsql.user_id

@@ -1,5 +1,5 @@
 #!/bin/bash
 # use this once: git config credential.helper store
 git add *
-git commit -m "datediff on the subquery"
+git commit -m "duration v2 into main"
 git push origin master
