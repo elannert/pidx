@@ -8,7 +8,7 @@ Group by ur.state, ur.link_id, ur.link_type, ur.user_id, s.name, s.id
 Union
 
 
-select 'user_logs' as psrc, action as paction, (case action when 'search' then search_query when 'search_top_picks' then search_query else artifact_title end) as ptitle, (case action when 'search' then 'Search' when 'search_top_picks' then 'Search' else artifact_type end) as ptype, user_id, cast(min(created_at) as timestamp) as created, null as drilldownurl, date_trunc('month', created_at) as pmonth, user_id as pidxuid  
+select 'user_logs' as psrc, action as paction, (case action when 'search' then search_query when 'search_top_picks' then search_query else artifact_title end) as ptitle, (case action when 'search' then 'Search' when 'search_top_picks' then 'Search' else artifact_type end) as ptype, user_id, cast(min(created_at) as timestamp) as created, null as drilldownurl, date_trunc('month', cast(min(created_at) as timestamp)) as pmonth, user_id as pidxuid  
 From user_logs 
 group by action, artifact_title, search_query, artifact_type, user_id
 
