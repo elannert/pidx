@@ -1,5 +1,5 @@
 #!/bin/bash
 # use this once: git config credential.helper store
 git add *
-git commit -m "added individuals path union plus added cols to data blend with history "
+git commit -m "paren fix "
 git push origin master

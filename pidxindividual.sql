@@ -1,4 +1,4 @@
-Select 'user_registrations' as psrc, ur.state as paction, s.name as ptitle, link_type as ptype, user_id, cast(min(ur.created_at) as timestamp)  as created, concat('https://chicagocityoflearning.org/workshop-detail?id=', s.id) as drilldownurl, date_trunc('month', cast(min(ur.created_at) as timestamp))) as pmonth, user_id as pidxuid
+Select 'user_registrations' as psrc, ur.state as paction, s.name as ptitle, link_type as ptype, user_id, cast(min(ur.created_at) as timestamp)  as created, concat('https://chicagocityoflearning.org/workshop-detail?id=', s.id) as drilldownurl, date_trunc('month', cast(min(ur.created_at) as timestamp)) as pmonth, user_id as pidxuid
 From user_registrations ur, (select distinct id, name from scheduled_programs) s
 Where ur.link_type = 'ScheduledProgram'
 And ur.link_id = s.id
@@ -13,7 +13,7 @@ From user_logs
 group by action, artifact_title, search_query, artifact_type, user_id
 
 
-	Union
+Union
 
 
 Select 'issued_badges' as psrc, 'badge earned' as paction, b.name as ptitle, c.name as ptype, ib.user_id as user_id, cast(ib.created as timestamp) as created, concat('https://chicagocityoflearning.org/badge-details?id=', ib.badge_id) as drilldownurl, date_trunc('month', cast(ib.created as timestamp)) as pmonth,  ib.user_id as pidxuid
