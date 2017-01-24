@@ -1,4 +1,4 @@
-Select users.id as pidxuid, users.dob, h.depth, w.breadth, r.duration, d.density, (h.depth* w.breadth*r.duration) as pvolume, 
+Select users.id as pidxuid, users.dob, h.depth, w.breadth, r.duration, d.density, (h.depth* w.breadth*r.duration) as pvolume, badges.badge_count,
 (h.depth* w.breadth *r.duration * d.density) as pmass, ntile (100) over (order by h.depth* w.breadth *r.duration * d.density asc ) as ntile
 From (
 Select 
@@ -73,3 +73,9 @@ Inner join
 select datediff(day, min(created_at), max(created_at)) as logduration, count(id) as logcount,
 user_id from user_logs group by user_id having datediff(day, min(created_at), max(created_at))>2
 ) logs on users.id = logs.user_id
+inner join
+(
+select count(distinct badge_id) as badge_count, user_id 
+from issued_badges
+group by user_id
+) badges on users.id = badges.user_id

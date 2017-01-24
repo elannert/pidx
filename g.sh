@@ -1,5 +1,5 @@
 #!/bin/bash
 # use this once: git config credential.helper store
 git add *
-git commit -m "group by in user logs "
+git commit -m "added badge count "
 git push origin master
