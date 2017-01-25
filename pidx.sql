@@ -1,5 +1,6 @@
 Select users.id as pidxuid, users.dob, h.depth, w.breadth, r.duration, d.density, (h.depth* w.breadth*r.duration) as pvolume, badges.badge_count,
-(h.depth* w.breadth *r.duration * d.density) as pmass, ntile (100) over (order by h.depth* w.breadth *r.duration * d.density asc ) as ntile
+(h.depth* w.breadth *r.duration * d.density) as pmass, ntile (100) over (order by h.depth* w.breadth *r.duration * d.density asc ) as ntile,
+h.depthcategoryname
 From (
 Select 
 min(claim_code) as claim_code, 
@@ -25,7 +26,7 @@ Group by id
 ) users
 inner join  
 (
-Select max(categorybadgecount) as depth, user_id
+Select max(categorybadgecount) as depth, user_id, depthcategoryname
 From
 (
 Select c.name as depthcategoryname, count(c.name) as categorybadgecount, ib.user_id
