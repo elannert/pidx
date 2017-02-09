@@ -1,11 +1,17 @@
 select  users.id,
-        full_name,
-        email_address,
-        guardian_name,
-        guardian_email_address,
+        users.full_name,
+        users.email_address,
+        users.guardian_name,
+        users.guardian_email_address,
         cps.gender,
         cps.grade,
-        cps.school_name
+        cps.school_name,
+        users.dob,
+        users.claim_code,
+        users.external_id,
+        users.token_id,
+        users.username,
+        users.uuid
 from    users, chicago_user_infos cps
 where   users.id = cps.user_id and
         cps.grade >= 5 and
