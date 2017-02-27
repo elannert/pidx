@@ -19,9 +19,11 @@ from    users
         inner join 
         (
                 select  cps.gender, cps.grade, cps.school_name, moc.claim_code,  
-                        case when cps.user_id is null 
-                        then moc.moc_user_id 
-                        else cps.user_id 
+                        case when cps.user_id is not null 
+                        then cps.user_id 
+                        when moc.moc_user_id is not null
+                        then moc.moc_user_id
+                        else ha.id 
                         end as bfn_user_id
                 from
                         (
@@ -31,7 +33,6 @@ from    users
                                 grade <= 8
                                 and (
                                     school_name ilike 'reavis%'
-                                    or school_name ilike 'holy angels%'
                                     or school_name ilike 'kozminski%'
                                     or school_name ilike 'wells, I%'
                                     or school_name ilike 'UNIV OF CHGO CHTR-WOODSON%'
@@ -52,6 +53,14 @@ from    users
                                 )
                         ) moc
                         on cps.user_id = moc.moc_user_id
+                        full outer join
+                        (
+                        select  id
+                        from    users
+                        where   school_name ilike 'holy angels%'
+                        ) ha
+                        on cps.user_id = ha.id
+                        
         ) bfn
         on bfn.bfn_user_id = users.id
         
