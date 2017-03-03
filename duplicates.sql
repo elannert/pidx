@@ -14,7 +14,8 @@ where   u.dob = c.dob
         and u.id != c.id        
         
         
-select regexp_count(trim(full_name), ' ') + 1 as name_count, count(*)
+select regexp_count(trim(full_name), ' ') + 1 as name_count, count(*), state
 from users
 where origin='import'
-group by regexp_count(trim(full_name), ' ')
+group by regexp_count(trim(full_name), ' '), state
+
