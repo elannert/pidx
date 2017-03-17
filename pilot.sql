@@ -14,16 +14,17 @@ select  users.id,
         users.username,
         users.uuid,
         users.school_name as users_table_school_name,
-        bfn.claim_code as moc_claim_code,
-        bfn.pilot_flag as pilot_flag
+        bfn.pilot_claim_code as pilot_claim_code,
+        bfn.pilot_flag as pilot_flag,
+        bfn.pilot_roster_date
 from    users   
         inner join 
         (
-                select  cps.gender, cps.grade, cps.school_name, moc.claim_code, pilot.pilot_flag,
+                select  cps.gender, cps.grade, cps.school_name, pilot.pilot_claim_code, pilot.pilot_flag, pilot.pilot_roster_date,
                         case when cps.user_id is not null 
                         then cps.user_id 
-                        when moc.moc_user_id is not null
-                        then moc.moc_user_id
+                        when pilot.pilot_user_id is not null
+                        then pilot.pilot_user_id
                         else ha.id 
                         end as bfn_user_id
                 from
@@ -40,20 +41,6 @@ from    users
                                     or school_name ilike 'burke%'
                                 )
                         ) cps
-                        full outer join
-                        (
-                        Select  user_id as moc_user_id, claim_code 
-                        from    user_registrations 
-                        Where   claim_code in
-                                ('BWL49'
-                                ,'BKSEE'
-                                ,'BLM8G'
-                                ,'BJFIN'
-                                ,'BHYJT'
-                                ,'BQHF2'
-                                )
-                        ) moc
-                        on cps.user_id = moc.moc_user_id
                         full outer join
                         (
                         Select  user_id as pilot_user_id, claim_code as pilot_claim_code, 1 as pilot_flag, created_at as pilot_roster_date 
@@ -81,3 +68,4 @@ from    users
         ) bfn
         on bfn.bfn_user_id = users.id
         
+where pilot_flag = 1
