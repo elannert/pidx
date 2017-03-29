@@ -5,6 +5,7 @@ select  users.id,
         users.guardian_email_address,
         bfn.gender,
         bfn.grade,
+        bfn.ethnicity,
         bfn.school_name,
         users.dob,
         users.claim_code,
@@ -20,7 +21,7 @@ select  users.id,
 from    users   
         inner join 
         (
-                select  cps.gender, cps.grade, cps.school_name, pilot.pilot_claim_code, pilot.pilot_flag, pilot.pilot_roster_date,
+                select  cps.gender, cps.grade, cps.school_name, cps.ethnicity, pilot.pilot_claim_code, pilot.pilot_flag, pilot.pilot_roster_date,
                         case when cps.user_id is not null 
                         then cps.user_id 
                         when pilot.pilot_user_id is not null
@@ -29,7 +30,7 @@ from    users
                         end as bfn_user_id
                 from
                         (
-                        select  user_id, gender, grade, school_name 
+                        select  user_id, gender, grade, school_name, ethnicity 
                         from    chicago_user_infos
                         where   grade >= 5 and
                                 grade <= 8
