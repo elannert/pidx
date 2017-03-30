@@ -17,11 +17,12 @@ select  users.id,
         users.school_name as users_table_school_name,
         bfn.pilot_claim_code as pilot_claim_code,
         bfn.pilot_flag as pilot_flag,
-        bfn.pilot_roster_date
+        bfn.pilot_roster_date,
+        bfn.link_id
 from    users   
         inner join 
         (
-                select  cps.gender, cps.grade, cps.school_name, cps.ethnicity, pilot.pilot_claim_code, pilot.pilot_flag, pilot.pilot_roster_date,
+                select  cps.gender, cps.grade, cps.school_name, cps.ethnicity, pilot.pilot_claim_code, pilot.pilot_flag, pilot.pilot_roster_date, pilot.link_id,
                         case when cps.user_id is not null 
                         then cps.user_id 
                         when pilot.pilot_user_id is not null
@@ -44,7 +45,7 @@ from    users
                         ) cps
                         full outer join
                         (
-                        Select  user_id as pilot_user_id, claim_code as pilot_claim_code, 1 as pilot_flag, created_at as pilot_roster_date 
+                        Select  user_id as pilot_user_id, link_id, claim_code as pilot_claim_code, 1 as pilot_flag, created_at as pilot_roster_date 
                         from    user_registrations 
                         Where   claim_code in
                                 ('P1ZW3'
