@@ -1,5 +1,5 @@
 #!/bin/bash
 # use this once: git config credential.helper store
 git add *
-git commit -m "new files for dashboard for ugochi"
+git commit -m "queries for pfm visualizations"
 git push origin master
