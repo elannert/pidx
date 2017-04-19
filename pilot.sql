@@ -18,8 +18,7 @@ select  users.id,
         bfn.pilot_claim_code as pilot_claim_code,
         bfn.pilot_flag as pilot_flag,
         bfn.pilot_roster_date,
-        bfn.link_id,
-        tobe.profile_setting_value
+        bfn.link_id
 from    users   
         inner join 
         (
@@ -70,10 +69,4 @@ from    users
                         
         ) bfn
         on bfn.bfn_user_id = users.id
-        inner join (
-                select  user_id as prefs_user_id, profile_setting_value 
-                from    user_profile_settings
-                where   profile_setting_type = 'to_be'
-        ) tobe
-        on tobe.prefs_user_id = users.id
 where pilot_flag = 1
