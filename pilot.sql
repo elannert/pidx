@@ -48,14 +48,20 @@ from    users
                         Select  user_id as pilot_user_id, link_id, claim_code as pilot_claim_code, 1 as pilot_flag, created_at as pilot_roster_date 
                         from    user_registrations 
                         Where   claim_code in
-                                ('P1ZW3'
-                                ,'PSUBR'
-                                ,'P0652'
-                                ,'P17O9'
-                                ,'PDDST'
+                                ('P80CK'
                                 ,'POGZX'
-                                ,'P0EQ6'
                                 ,'PA6X3'
+                                ,'P17O9'
+                                ,'P1ZW3'
+                                ,'PNM7U'
+                                ,'P0652'
+                                ,'PXP0V'
+                                ,'PLJB6'
+                                ,'P6S9W'
+                                ,'P3VVI'
+                                ,'PP2F7'
+                                ,'PSUBR'
+                                ,'PDDST'
                                 )
                         ) pilot
                         on cps.user_id = pilot.pilot_user_id
