@@ -1,4 +1,4 @@
-select  cps.external_sys_id, cps.gender, cps.grade, cps.school_name, users.full_name
+select  cps.external_sys_id, cps.gender, cps.grade, cps.school_name, users.full_name, cps.
 from    chicago_user_infos cps, users
 where   grade >= 5 and
         grade <= 8
